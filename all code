@@ -1,0 +1,334 @@
+import React, { useState, createRef } from 'react';
+import './style.scss';
+import { Form, Field } from 'react-final-form';
+import Box from 'components/box';
+// import Select from 'components/select/index';
+import INDUSTRY from 'assets/data/industry.json';
+import Button from 'components/button/index';
+// import cross from 'assets/images/plus-icn.svg';
+// import Input from 'react-select/src/components/Input';
+// #aac3fc
+// import Select from 'react-select';
+import Creatable from 'react-select/creatable';
+
+const SectorKeywords = () => {
+  const [keywords, setKeywords] = useState(['b', 'c']);
+  const [inputFocus, setInputFocus] = useState(false);
+  let node = createRef();
+  const onSubmit = (values) => {
+    console.log(values);
+    return '';
+  };
+  return (
+    <Box heading="Sector and Keywords">
+      <div className="sector-keywords">
+        <div className="second">
+          <Form
+            onSubmit={onSubmit}
+            // initialValues={{
+            //   country: { value: 'Singapore', label: 'Singapore' },
+            // }}
+            render={({ handleSubmit, form, values }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="second-2">
+                  <div className="pd-2">
+                    <label>Add Industry</label>
+                    <div>
+                      {/* <Select
+                        name="industry"
+                        isMulti
+                        options={INDUSTRY.industry.map((value) => ({
+                          value,
+                          label: value,
+                        }))}
+                      /> */}
+                    </div>
+                  </div>
+                  <div className="pd-2">
+                    <label>Add Industry</label>
+                    <div>
+                      <Creatable
+                        noOptionsMessage={() => null}
+                        openMenuOnClick={false}
+                        components={{
+                          DropdownIndicator: () => null,
+                          IndicatorSeparator: () => null,
+                          Menu: () => null,
+                          ClearIndicator: () => null,
+                        }}
+                        formatCreateLabel={(inputValue) => `Add ${inputValue}`}
+                        options={[]}
+                        isMulti
+                      />
+                    </div>
+                  </div>
+                  <div className="pd-2">
+                    <label>Add Keywords</label>
+                    <div className="container">
+                      <div className="control">
+                        <div
+                          className="value-container"
+                          //   onClick={() => {
+                          //     node.current.focus();
+                          //   }}
+                        >
+                          {keywords.map((keyword, idx) => (
+                            <div key={keyword} className="multiValue">
+                              <div className="text">{keyword}</div>
+
+                              <div
+                                className="cross"
+                                onClick={() => {
+                                  const updatedKeywords = [...keywords];
+                                  updatedKeywords.splice(idx, 1);
+                                  setKeywords(updatedKeywords);
+                                }}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                  if (e.keyCode === 13) {
+                                    const updatedKeywords = [...keywords];
+                                    updatedKeywords.splice(idx, 1);
+                                    setKeywords(updatedKeywords);
+                                  }
+                                }}
+                              >
+                                <svg
+                                  height="14"
+                                  width="14"
+                                  viewBox="0 0 20 20"
+                                  aria-hidden="true"
+                                  focusable="false"
+                                  className="svg"
+                                >
+                                  <path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z" />
+                                </svg>
+                              </div>
+                              {/* <img src={cross} alt="cross" /> */}
+                            </div>
+                          ))}
+                          <div className="input-container">
+                            <div
+                              className=""
+                              style={{ display: 'inline-block' }}
+                            >
+                              <Field name="keyword">
+                                {({ input }) => (
+                                  //   <div>
+                                  <input
+                                    ref={node}
+                                    {...input}
+                                    style={{
+                                      width: '2px',
+                                      boxSizing: 'content-box',
+                                      background: '0px center',
+                                      border: '0px',
+                                      fontSize: 'inherit',
+                                      opacity: '1',
+                                      outline: '0px',
+                                      padding: '0px',
+                                      color: 'inherit',
+                                    }}
+                                    type="text"
+                                  />
+                                  //   </div>
+                                )}
+                              </Field>
+                            </div>
+                          </div>
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '0px',
+                              left: '0px',
+                              visibility: 'hidden',
+                              height: '0px',
+                              overflow: 'scroll',
+                              whiteSpace: 'pre',
+                              fontSize: '16px',
+                              fontFamily: 'Arial',
+                              fontWeight: '400',
+                              fontStyle: 'normal',
+                              letterSpacing: 'normal',
+                              textTransform: 'none',
+                            }}
+                          />
+                        </div>
+                        <div className="indicators-container">
+                          <Button
+                            type="primary"
+                            title="Add"
+                            handleClick={() => {
+                              console.log(values);
+                              setKeywords([...keywords, values.keyword]);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            )}
+          />
+        </div>
+      </div>
+    </Box>
+  );
+};
+
+export default SectorKeywords;
+
+
+
+
+
+
+
+
+///////////////////////////////////////////
+
+style
+
+
+.sector-keywords {   
+    .second {
+      padding: 10px 0;
+    }
+    .second label {
+      font-size: 14px;
+      padding-bottom: 5px;
+      display: block;
+      color: #1f1f1f;
+      opacity: 0.73;
+    }
+    .second select {
+      min-height: 35px;
+      width: 100%;
+      border: 1px solid#ebf2f9;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .second .pd-2 {
+      padding: 10px 0;
+    }
+    
+    .second .second-2 {
+      padding-bottom: 15px;
+
+    }
+    .second-2{
+      .container{
+        position: relative;
+        box-sizing: border-box;
+        .control{
+       
+    -webkit-box-align: center;
+   
+    align-items: center;
+    background-color: hsl(0,0%,100%);
+    border-color: hsl(0,0%,80%);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: default;
+    
+    display: flex;
+    
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    min-height: 38px;
+    outline: 0 !important;
+    position: relative;
+   
+    transition: all 100ms;
+    box-sizing: border-box;
+    .value-container{
+      align-items: center;
+      -webkit-box-align: center;
+    display: flex;
+    flex: 1;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding: 2px 8px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    .multiValue{
+      background-color: hsl(0,0%,90%);
+    border-radius: 2px;
+    display: flex;
+    margin: 2px;
+    min-width: 0;
+    box-sizing: border-box;
+    .text{
+      border-radius: 2px;
+    color: hsl(0,0%,20%);
+    font-size: 85%;
+    overflow: hidden;
+    padding: 3px;
+    padding-left: 6px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    }
+    .cross{ 
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 2px;
+    display: flex;
+    padding-left: 4px;
+    padding-right: 4px;
+    box-sizing: border-box;
+    :hover{
+      background-color: #FFBDAD;
+    color: #DE350B;
+    }
+  //  .svg{
+  //   display: inline-block;
+  //   fill: currentColor;
+  //   line-height: 1;
+  //   stroke: currentColor;
+  //   stroke-width: 0;
+  //  }
+  
+  
+  }
+    }
+    .input-container{
+      margin: 2px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    visibility: visible;
+    color: hsl(0,0%,20%);
+    box-sizing: border-box;
+    }
+    }
+    .indicators-container{
+      -webkit-box-align: center;
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      flex-shrink: 0;
+      box-sizing: border-box;
+     
+    }
+        }
+      }
+    }
+    .second .second-2 .stage {
+      padding: 18px 0;
+    }
+    .second .second-2 .stage a {
+      padding: 10px 0;
+      font-size: 13px;
+      color: #0279ff;
+      display: block;
+    }
+  }
+  
